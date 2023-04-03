@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="home.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Personal Website</title>
+</head>
+<body class="body">
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Mostafa Moamen</a>
+    
+        </button>
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="aboutme.html">About Me</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contactme.html">Contact Me</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mywork.html">My Work</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="store.html">My Store</a>
+                </li>
+                <li class="nav-item ml-right">
+                    <button class="nav-link" id="dark" onclick="changeToDark()">Dark Mode</button>
+                </li>
+                
+            </ul>
+        </div>
+    </nav>
+    <script>
+        function changeToDark(){
+            var navbar = document.getElementById("navbar");
+            navbar.classList.toggle("navbar-dark");
+            navbar.classList.toggle("navbar-light");
+            navbar.classList.toggle("bg-dark");
+            navbar.classList.toggle("bg-light");
+         }
+    </script>
+    <div class="store-container">
+        <div class="store-item">
+          <img src="pd.png" alt="Babolat Pure Drive" height="340px" width="200px">
+          <h3>Babolat Pure Drive</h3>
+          <p>$200.00</p>
+          <button class="bt btn-primary shop-item-button" type="button" value="bpd">Add to cart</button>
+        </div>
+        <div class="store-item" >
+          <img src="pa.png" alt="Babolat Pure Aero" height="340px" width="200px">
+          <h3>Babolat Pure Aero</h3>
+          <p>$279.00</p>
+          <button class="bt btn-primary shop-item-button" type="button"  value="bpa">Add to cart</button>
+        </div>
+        <div class="store-item">
+          <img src="ps.png" alt="Babolat Pure Strike" height="340px" width="200px">
+          <h3>Babolat Pure Strike</h3>
+          <p>$260.00</p>
+          <button value="bps" class="bt btn-primary shop-item-button" type="button" >Add to Cart</button>
+        </div>
+        
+      </div>
+      <section class="container content-section">
+        <h2 class="section-header">CART</h2>
+        <div class="cart-row">
+            <span class="cart-item cart-header cart-column">ITEM</span>
+            <span class="cart-price cart-header cart-column">PRICE</span>
+            <span class="cart-quantity cart-header cart-column">QUANTITY</span>
+        </div>
+        <div class="cart-items">
+        </div>
+        <div class="cart-total">
+            <strong class="cart-total-title">Total</strong>
+            <span class="cart-total-price">$0</span>
+        </div>
+        <div><button class="btn btn-primary btn-purchase" type="button">PURCHASE</button></div>
+    
+
+    <script>
+
+        let cartItems = [];
+        const addToCartButtons = document.querySelectorAll('.shop-item-button');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', event => {
+                const item = {
+                    name: event.target.parentElement.querySelector('h3').innerText,
+                    price: event.target.parentElement.querySelector('p').innerText,
+                    quantity: 1
+    };
+        const existingItem = cartItems.find(cartItem => cartItem.name === item.name);
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            cartItems.push(item);
+        }
+
+        updateCart();
+  });
+});
+    const purchaseButton = document.querySelector('.btn-purchase');
+
+    purchaseButton.addEventListener('click', event => {
+
+    alert('Sending cart items:', cartItems);
+    
+    cartItems = [];
+    updateCart();
+    });
+
+
+    function updateCart() {
+    const cartItemsElement = document.querySelector('.cart-items');
+    const cartTotalElement = document.querySelector('.cart-total-price');
+    
+    
+    cartItemsElement.innerHTML = '';
+    
+
+    cartItems.forEach(item => {
+        const cartItemElement = document.createElement('div');
+        cartItemElement.classList.add('cart-row');
+        cartItemElement.innerHTML = `
+        <span class="cart-item cart-column">${item.name}</span>
+        <span class="cart-price cart-column">${item.price}</span>
+        <span class="cart-quantity cart-column">${item.quantity}</span>
+        `;
+        cartItemsElement.appendChild(cartItemElement);
+    });
+    
+    
+    const cartTotal = cartItems.reduce((total, item) => total + parseInt(item.price.replace('$', '')) * item.quantity, 0);
+    cartTotalElement.innerText = '$' + cartTotal;
+}
+    </script>
+   <footer class="footer">
+    
+        <a href="home.html">
+            <img src="home_thumbnail.png" alt="homeThumbnail" height="35px" width="35px">
+        </a>
+        <a href="https://www.instagram.com/">
+            <img src="instagram.png" alt="Instagram" height="30px" width="30px">
+        </a>
+        <a href="https://github.com/github">
+            <img src="github.png" alt="Github" height="30px" width="60px">
+        </a>
+        <a href="https://www.facebook.com/">
+            <img src="facebook.png" alt="Facebook" height="30px" width="30px">
+        </a>
+    </a>
+    <a href="https://www.linkedin.com/company/linkedin/?originalSubdomain=in">
+        <img src="linkedn.png" alt="Linkedin" height="30px" width="30px">
+    </a>
+    
+    
+    
+    
+   </footer>
+    
+</body>
+</html>
